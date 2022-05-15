@@ -112,7 +112,9 @@ const Home: NextPage = () => {
             </a>
           </div>
           <div className="flex gap-x-4 items-center ml-auto">
-            <FontAwesomeIcon icon={faGithub} size="2x" style={{ color: "005B3A" }} />
+            <a href="https://github.com/eomgerm/weather-badge" target="_blank">
+              <FontAwesomeIcon icon={faGithub} size="2x" style={{ color: "005B3A" }} />
+            </a>
             <a href="https://velog.io/@eomgerm" target="_blank">
               <img src="/velog.svg" width={30} />
             </a>
