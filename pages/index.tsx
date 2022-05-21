@@ -28,10 +28,8 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const getCityRecommendations = async () => {
-      const key = "d30355b9c6b44ce0c7bea3fd9bbb6c98";
-      const requestURL = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=10&appid=${key}`;
-      const { data } = await axios(requestURL);
-      const cities = data.map((city: any) => ({ name: city.name, state: city.state, country: city.country, lat: city.lat, lon: city.lon }));
+      const { data } = await axios(`/api/weather?city=${city}`);
+      const cities = data.map((city: any) => ({ name: city.name, country: city.country, lat: city.lat, lon: city.lon }));
       setRecommendations(cities);
       console.log(cities);
     };
@@ -71,28 +69,26 @@ const Home: NextPage = () => {
 
         {city ? (
           recommendations.length > 0 ? (
-            <div className="bg-white rounded-md flex flex-col w-[25rem] h-[15.25rem] items-center overflow-y-auto">
+            <div className="bg-white rounded-md flex flex-col w-[20rem] h-[15.25rem] items-center overflow-y-auto">
               <ul className="w-full divide-y">
                 {recommendations.map((city) => (
                   <li className="cursor-pointer hover:bg-gray-200" onClick={() => setChosenCity(city)}>
                     <div className="flex place-content-between px-5 py-3">
                       <p className="font-semibold">{city.name}</p>
-                      <span className="text-xs text-slate-400 mt-1.5 text-right">
-                        {city.state} {city.country}
-                      </span>
+                      <span className="text-xs text-slate-400 mt-1 text-right">{city.country}</span>
                     </div>
                   </li>
                 ))}
               </ul>
             </div>
           ) : (
-            <div className="bg-white rounded-md flex flex-col w-[25rem] h-[15.25rem] justify-center items-center">
+            <div className="bg-white rounded-md flex flex-col w-[20rem] h-[15.25rem] justify-center items-center">
               <FontAwesomeIcon icon={faFaceMeh} style={{ color: "005B3A" }} size="3x" />
               <span className="mt-3 text-md font-semibold">Could not find {city}...</span>
             </div>
           )
         ) : (
-          <div className="bg-white rounded-md flex flex-col w-[25rem] h-[15.25rem] items-center justify-center">
+          <div className="bg-white rounded-md flex flex-col w-[20rem] h-[15.25rem] items-center justify-center">
             <FontAwesomeIcon icon={faCity} style={{ color: "005B3A" }} size="3x" />
             <span className="mt-3 text-md font-semibold">You have to enter the city name.</span>
           </div>
