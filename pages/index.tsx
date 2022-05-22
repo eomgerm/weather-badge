@@ -28,13 +28,23 @@ const Home: NextPage = () => {
 
   useEffect(() => {
     const getCityRecommendations = async () => {
-      const { data } = await axios(`/api/weather?city=${city}`);
+      const { data } = await axios(`/api/geo?city=${city}`);
       const cities = data.map((city: any) => ({ name: city.name, country: city.country, lat: city.lat, lon: city.lon }));
       setRecommendations(cities);
-      console.log(cities);
     };
-    getCityRecommendations();
+    if (city) {
+      getCityRecommendations();
+    }
   }, [city]);
+
+  useEffect(() => {
+    const getWeather = async () => {
+      const { lat, lon } = chosenCity;
+      const { data } = await axios(`/api/weather?lat=${lat}&lon=${lon}`);
+      console.log(data);
+    };
+    getWeather();
+  }, [chosenCity]);
 
   return (
     <div className="min-h-screen flex-col flex">
@@ -71,8 +81,8 @@ const Home: NextPage = () => {
           recommendations.length > 0 ? (
             <div className="bg-white rounded-md flex flex-col w-[20rem] h-[15.25rem] items-center overflow-y-auto">
               <ul className="w-full divide-y">
-                {recommendations.map((city) => (
-                  <li className="cursor-pointer hover:bg-gray-200" onClick={() => setChosenCity(city)}>
+                {recommendations.map((city, index) => (
+                  <li key={index} className="cursor-pointer hover:bg-gray-200" onClick={() => setChosenCity(city)}>
                     <div className="flex place-content-between px-5 py-3">
                       <p className="font-semibold">{city.name}</p>
                       <span className="text-xs text-slate-400 mt-1 text-right">{city.country}</span>
