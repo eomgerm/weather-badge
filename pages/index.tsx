@@ -1,9 +1,12 @@
-import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { faCity, faCloudSunRain, faEnvelope, faFaceMeh, faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
 import type { NextPage } from "next";
 import React, { useEffect, useState } from "react";
+import CityInput from "../components/CityInput";
+import CopyButton from "../components/CopyButton";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
 
 const Home: NextPage = () => {
   const [city, setCity] = useState<string>("");
@@ -18,7 +21,7 @@ const Home: NextPage = () => {
     lon: number;
   }
 
-  const handleChagneCity = (event: React.FormEvent<HTMLInputElement>) => {
+  const handleChangeCity = (event: React.FormEvent<HTMLInputElement>) => {
     const {
       currentTarget: { value },
     } = event;
@@ -48,34 +51,14 @@ const Home: NextPage = () => {
 
   return (
     <div className="min-h-screen flex-col flex">
-      <header className="flex flex-col items-center justify-center pt-6">
-        <FontAwesomeIcon icon={faCloudSunRain} size="3x" style={{ color: "005B3A" }} />
-        <h1 className="text-4xl font-bold mt-2">
-          Weather <span className="text-[#A499C6]">Badge</span>
-        </h1>
-        <p className="mt-2">
-          Create your own <span className="text-[#A499C6]">Badge</span> showing current weather.
-        </p>
-      </header>
+      <Header />
 
       <main className="rounded-lg flex-col gap-y-8 mt-5 container grow flex items-center">
         <div style={{ width: 200, height: 200 }}>
           <img src="/vercel.svg" />
         </div>
 
-        <form className="flex flex-col w-[20rem] gap-y-2">
-          <label className="label">City Name</label>
-          <div className="relative">
-            <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" className="absolute top-3.5 left-3.5" />
-            <input
-              type="text"
-              placeholder="Where do you live?"
-              className="py-3 pl-11 pr-5 rounded-full w-full focus:outline-0 focus:ring-4 focus: ring-[#A499C6]/50"
-              onChange={handleChagneCity}
-              name="city"
-            />
-          </div>
-        </form>
+        <CityInput onChange={handleChangeCity} />
 
         {city ? (
           recommendations.length > 0 ? (
@@ -104,32 +87,9 @@ const Home: NextPage = () => {
           </div>
         )}
 
-        <button className="mb-5 bg-gradient-to-tr from-[#f650a0] to-[#ff8787] rounded-full py-3 w-56 text-[#FFE4F6] font-bold hover:bg-none hover:bg-[#ff8787]">
-          Copy!
-        </button>
+        <CopyButton />
       </main>
-
-      <footer className="flex justify-center py-3 border-t border-[#A499C6]">
-        <div className="flex justify-center items-center container">
-          <div>
-            © {new Date().getFullYear()}{" "}
-            <a href="https://github.com/eomgerm" target="_blank" className="hover:underline">
-              Eomgerm
-            </a>
-          </div>
-          <div className="flex gap-x-4 items-center ml-auto">
-            <a href="https://github.com/eomgerm/weather-badge" target="_blank">
-              <FontAwesomeIcon icon={faGithub} size="2x" style={{ color: "005B3A" }} />
-            </a>
-            <a href="https://velog.io/@eomgerm" target="_blank">
-              <img src="/velog.svg" width={30} />
-            </a>
-            <a href="mailto:fishbread00@gmail.com">
-              <FontAwesomeIcon icon={faEnvelope} size="2x" style={{ color: "005B3A" }} />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 };
