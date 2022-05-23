@@ -31,7 +31,7 @@ const Home: NextPage = () => {
     setSize(value);
   };
 
-  const queryString = useDebounce({value: generateQueryString({ lat: chosenCity.lat, lon: chosenCity.lon, size }),delay: 300});
+  const queryString = useDebounce({ value: generateQueryString({ lat: chosenCity.lat, lon: chosenCity.lon, size }), delay: 300 });
   const svgUrl = `/api/badge${queryString}`;
 
   return (
