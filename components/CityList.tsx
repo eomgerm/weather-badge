@@ -11,8 +11,8 @@ const CityList: NextPage<CityListProps> = ({ recommendations, setChosenCity }: C
   return (
     <div className="h-full w-full">
       <ul className="w-full divide-y">
-        {recommendations.map((city, index) => (
-          <CityListItem city={city} index={index} setChosenCity={setChosenCity} />
+        {recommendations.map((city) => (
+          <CityListItem key={city.lat+city.lon} city={city} setChosenCity={setChosenCity} />
         ))}
       </ul>
     </div>
