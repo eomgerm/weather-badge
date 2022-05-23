@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 
 type CityInputProps = {
-  onChange(event: React.FormEvent<HTMLInputElement>): void;
+  onChange: (event: React.FormEvent<HTMLInputElement>) => void;
 };
 
 const CityInput: NextPage<CityInputProps> = ({ onChange }: CityInputProps) => {
