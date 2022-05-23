@@ -8,10 +8,10 @@ type CityInputProps = {
 
 const CityInput: NextPage<CityInputProps> = ({ onChange }: CityInputProps) => {
   return (
-    <form className="flex flex-col w-[20rem] gap-y-2">
+    <>
       <label className="label">City Name</label>
       <div className="relative">
-        <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" className="absolute top-3.5 left-3.5" />
+        <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" className="absolute top-3.5 left-4" />
         <input
           type="text"
           placeholder="Where do you live?"
@@ -20,7 +20,7 @@ const CityInput: NextPage<CityInputProps> = ({ onChange }: CityInputProps) => {
           name="city"
         />
       </div>
-    </form>
+    </>
   );
 };
 
