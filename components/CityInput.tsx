@@ -14,7 +14,7 @@ const CityInput: NextPage<CityInputProps> = ({ onChange }: CityInputProps) => {
         <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" className="absolute top-3.5 left-4" />
         <input
           type="text"
-          placeholder="Where do you live?"
+          placeholder="Seoul (Default)"
           className="py-3 pl-11 pr-5 rounded-full w-full focus:outline-0 focus:ring-4 focus: ring-[#A499C6]/50"
           onChange={onChange}
           name="city"
