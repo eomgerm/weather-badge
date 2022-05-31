@@ -15,12 +15,12 @@ const CopyModal: NextPage<CopyModalProps> = ({ badgeUrl }: CopyModalProps) => {
             ✕
           </label>
           <h3 className="text-lg font-bold">SVG URL</h3>
-          <CodeMockup contents={"https://weather-badge.vercel.app/" + badgeUrl} />
+          <CodeMockup contents={"https://weather-badge.vercel.app" + badgeUrl} />
           <h3 className="text-lg font-bold">HTML</h3>
-          <CodeMockup contents={`<a href=${"https://weather-badge.vercel.app/" + badgeUrl}>\n   <object data=${badgeUrl} />\n  </a>`} />
+          <CodeMockup contents={`<a href=${"https://weather-badge.vercel.app" + badgeUrl}>\n   <object data=${badgeUrl} />\n  </a>`} />
           <h3 className="text-lg font-bold">Markdown</h3>
           <CodeMockup
-            contents={`[![Weather Badge](${"https://weather-badge.vercel.app/" + badgeUrl})](${"https://weather-badge.vercel.app/" + badgeUrl}))`}
+            contents={`[![Weather Badge](${"https://weather-badge.vercel.app" + badgeUrl})](${"https://weather-badge.vercel.app/" + badgeUrl}))`}
           />
         </label>
       </label>
