@@ -9,13 +9,12 @@ import SizeInput from "../components/SizeInput";
 import useDebounce from "../hooks/useDebounce";
 import { City } from "../types/types";
 import generateQueryString from "../utils/generateQueryString";
-import Modal from "react-modal";
+import CopyModal from "../components/CopyModal";
 
 const Home: NextPage = () => {
   const [city, setCity] = useState<string>("");
   const [chosenCity, setChosenCity] = useState<City>({ name: "Seoul", state: "", country: "KR", lat: 37.5666791, lon: 126.9782914 });
   const [size, setSize] = useState<string>("");
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const handleCityChange = (event: React.FormEvent<HTMLInputElement>) => {
     const {
@@ -33,10 +32,6 @@ const Home: NextPage = () => {
     setSize(value);
   };
 
-  const handleClickCopy = () => {
-    setIsModalOpen(true);
-  };
-
   const queryString = useDebounce({ value: generateQueryString({ lat: chosenCity.lat, lon: chosenCity.lon, size }), delay: 300 });
   const svgUrl = `/api/badge${queryString}`;
 
@@ -46,23 +41,19 @@ const Home: NextPage = () => {
 
       <main className="rounded-lg flex-col container grow flex items-center">
         <a href={svgUrl} className="my-3">
-          <div>
-            <object data={svgUrl} style={{ pointerEvents: "none" }} />
-          </div>
+          <object data={svgUrl} className="pointer-events-none" />
         </a>
-        <div className="flex flex-col gap-y-8 items-center">
+        <div className="flex flex-col gap-y-6 items-center">
           <form className="flex flex-col w-[20rem] gap-y-2">
             <CityInput onChange={handleCityChange} />
             <SizeInput onChange={handleSizeChange} />
           </form>
           <CityAutoComplete input={city} setChosenCity={setChosenCity} />
 
-          <CopyButton onClick={handleClickCopy} />
+          <CopyButton />
         </div>
 
-        <Modal onRequestClose={() => setIsModalOpen(false)} isOpen={isModalOpen}>
-          this is contents
-        </Modal>
+        <CopyModal badgeUrl={svgUrl} />
       </main>
       <Footer />
     </div>

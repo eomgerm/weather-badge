@@ -9,7 +9,7 @@ type CityInputProps = {
 const CityInput: NextPage<CityInputProps> = ({ onChange }: CityInputProps) => {
   return (
     <>
-      <label className="label">City Name</label>
+      <label>City Name</label>
       <div className="relative">
         <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" className="absolute top-3.5 left-4" />
         <input
