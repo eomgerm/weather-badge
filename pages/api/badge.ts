@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createBadge } from "../../server/utils/svg";
 
-export default async (req: NextApiRequest, res: NextApiResponse) => {
+const hanlder = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { lat, lon, size = "150" },
   } = req;
@@ -11,3 +11,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   res.setHeader("Content-Type", "image/svg+xml");
   res.status(200).end(svg);
 };
+
+export default hanlder;
