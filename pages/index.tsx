@@ -10,6 +10,7 @@ import useDebounce from "../hooks/useDebounce";
 import { City } from "../types/types";
 import generateQueryString from "../utils/generateQueryString";
 import CopyModal from "../components/CopyModal";
+import Head from "next/head";
 
 const Home: NextPage = () => {
   const [city, setCity] = useState<string>("");
@@ -37,6 +38,11 @@ const Home: NextPage = () => {
 
   return (
     <div className="min-h-screen flex-col flex">
+      <Head>
+        <title>🌦️ - Weather Badge</title>
+        <meta charSet="utf-8" />
+        <meta name="description" content="Create your own Badge showing current weather." />
+      </Head>
       <Header />
 
       <main className="rounded-lg flex-col container grow flex items-center">
