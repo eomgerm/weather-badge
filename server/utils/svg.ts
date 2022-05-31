@@ -9,7 +9,7 @@ type AqiMap = {
 export const createBadge = async (lat: string, lon: string, size: string): Promise<string> => {
   const height = Number(size) * 1.3;
 
-  const { weather: weatherArr, main, wind, name } = await requestWeather(lat, lon);
+  const { weather: weatherArr, main, wind, name, dt, timezone } = await requestWeather(lat, lon);
   const { list: airPollutionArr } = await requestAirPollution(lat, lon);
   const weather = weatherArr[0];
   const airPollution = airPollutionArr[0];
@@ -31,6 +31,9 @@ export const createBadge = async (lat: string, lon: string, size: string): Promi
 
   const { uri, scale, y } = IconSVGMap[weather.icon];
 
+  const currentTime = new Date((dt + timezone) * 1000);
+  const timeText = `${currentTime.getHours()}:${currentTime.getMinutes()} UTC${timezone > 0 ? "+" : "-"}0${Math.abs(timezone / 3600)}:00`;
+
   //TODO: svg 사이즈 변경 가능하게 하기
 
   return `<!DOCTYPE svg PUBLIC
@@ -50,7 +53,7 @@ text {
     font-size: 0.8em;
 }
 
-text.location {
+text.header {
     fill: #bababa;
     font-size: 0.6em;
 }
@@ -68,7 +71,8 @@ text.description {
     <rect height="${height}" width="${size}" stroke="#cccccc" fill="white" rx="5" ry="5" />
     <svg x="8" y="8">
     <svg  xmlns="http://www.w3.org/2000/svg" fill="#bababa" width="10" height="10" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z"/></svg>
-    <text x="11" y="9" class="location" >${name}</text>
+    <text x="11" y="9" class="header" >${name}</text>
+    <text x="132" y="9" class="header" text-anchor="end">${timeText}</text>
     </svg>
     <image href="${uri}" height="${+size * scale}" width="${+size * scale}" x="${(+size * (1 - scale)) / 2}" y="${y}"/>
   <text x="75" y="130" class="weather" text-anchor="middle">${weather.main}</text>
