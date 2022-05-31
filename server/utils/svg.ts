@@ -33,7 +33,11 @@ export const createBadge = async (lat: string, lon: string, size: string): Promi
   const { uri, scale, y } = IconSVGMap[weather.icon];
 
   const currentTime = new Date((dt + timezone) * 1000);
-  const timeText = `${currentTime.getHours()}:${currentTime.getMinutes()} UTC${timezone > 0 ? "+" : "-"}0${Math.abs(timezone / 3600)}:00`;
+  let hours = currentTime.getHours().toString();
+  hours = hours.length == 1 ? `0${hours}` : hours;
+  let minutes = currentTime.getMinutes().toString();
+  minutes = minutes.length == 1 ? `0${minutes}` : minutes;
+  const timeText = `${hours}:${minutes} UTC${timezone > 0 ? "+" : "-"}0${Math.abs(timezone / 3600)}:00`;
 
   //TODO: svg 사이즈 변경 가능하게 하기
 
