@@ -5,7 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Header: NextPage = () => {
   return (
     <header className="flex flex-col items-center justify-center pt-6">
-      <FontAwesomeIcon icon={faCloudSunRain} size="3x" style={{ color: "005B3A" }} />
+      <div>
+        <FontAwesomeIcon icon={faCloudSunRain} className="text-[#005B3A] text-5xl" />
+      </div>
       <h1 className="text-4xl font-bold mt-2">
         Weather <span className="text-[#A499C6]">Badge</span>
       </h1>
