@@ -9,8 +9,8 @@ type SizeInputProps = {
 const SizeInput: NextPage<SizeInputProps> = ({ onChange }: SizeInputProps) => {
   return (
     <>
-      <label>Size: Coming Soon...</label>
-      <div className="relative">
+      <label className="mt-2 inline-block">Size: Coming Soon...</label>
+      <div className="relative my-2">
         <FontAwesomeIcon icon={faMaximize} size="lg" className="absolute top-3.5 left-4" />
         <input
           type="number"

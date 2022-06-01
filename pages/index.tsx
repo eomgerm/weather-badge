@@ -13,17 +13,8 @@ import CopyModal from "../components/CopyModal";
 import Head from "next/head";
 
 const Home: NextPage = () => {
-  const [city, setCity] = useState<string>("");
   const [chosenCity, setChosenCity] = useState<City>({ name: "Seoul", state: "", country: "KR", lat: 37.5666791, lon: 126.9782914 });
   const [size, setSize] = useState<string>("");
-
-  const handleCityChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const {
-      currentTarget: { value },
-    } = event;
-
-    setCity(value);
-  };
 
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -50,11 +41,10 @@ const Home: NextPage = () => {
           <img src={svgUrl} alt="Weather Badge" />
         </a>
         <div className="flex flex-col gap-y-6 items-center">
-          <form className="flex flex-col w-[20rem] gap-y-2">
-            <CityInput onChange={handleCityChange} />
+          <form className="w-[20rem] relative z-0">
+            <CityInput setChosenCity={setChosenCity} />
             <SizeInput onChange={handleSizeChange} />
           </form>
-          <CityAutoComplete input={city} setChosenCity={setChosenCity} />
 
           <CopyButton />
         </div>

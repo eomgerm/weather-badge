@@ -3,19 +3,18 @@ import { City } from "../types/types";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import CityList from "./CityList";
-import NotFoundCity from "./NotFoundCity";
-import BadInput from "./BadInput";
 import useDebounce from "../hooks/useDebounce";
 
-type Props = {
+type CityAutoCompleteProps = {
   input: string;
   setChosenCity: (city: City) => void;
+  setIsAutocompleteOpen: (isAutocompleteOpen: boolean) => void;
 };
 
-const CityAutoComplete: NextPage<Props> = ({ input, setChosenCity }: Props) => {
+const CityAutoComplete: NextPage<CityAutoCompleteProps> = ({ input, setChosenCity, setIsAutocompleteOpen }: CityAutoCompleteProps) => {
   const [recommendations, setRecommendations] = useState<Array<City>>([]);
 
-  const debouncedInput = useDebounce({ value: input, delay: 300 });
+  const debouncedInput = useDebounce({ value: input, delay: 200 });
 
   useEffect(() => {
     const getCityRecommendations = async () => {
@@ -24,28 +23,16 @@ const CityAutoComplete: NextPage<Props> = ({ input, setChosenCity }: Props) => {
       setRecommendations(cities);
     };
 
-    if (debouncedInput) {
-      getCityRecommendations();
-    } else {
-      setRecommendations([]);
-    }
-
-    return () => {
-      setRecommendations([]);
-    };
+    debouncedInput ? getCityRecommendations() : setRecommendations([]);
   }, [debouncedInput]);
 
+  useEffect(() => {
+    setIsAutocompleteOpen(recommendations.length > 0);
+  }, [recommendations.length]);
+
   return (
-    <div className="bg-white rounded-md flex flex-col w-[20rem] h-[15.25rem] justify-center items-center overflow-y-auto">
-      {debouncedInput ? (
-        recommendations.length > 0 ? (
-          <CityList setChosenCity={setChosenCity} recommendations={recommendations} />
-        ) : (
-          <NotFoundCity input={debouncedInput} />
-        )
-      ) : (
-        <BadInput />
-      )}
+    <div className="bg-white rounded-b-md flex flex-col w-[20rem] justify-center items-center overflow-y-auto z-10 fixed drop-shadow-md">
+      {recommendations.length > 0 && <CityList setChosenCity={setChosenCity} recommendations={recommendations} />}
     </div>
   );
 };

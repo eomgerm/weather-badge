@@ -1,25 +1,51 @@
 import { NextPage } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import CityAutoComplete from "./CityAutoComplete";
+import { useState } from "react";
+import { City } from "../types/types";
 
 type CityInputProps = {
-  onChange: (event: React.FormEvent<HTMLInputElement>) => void;
+  setChosenCity: (city: City) => void;
 };
 
-const CityInput: NextPage<CityInputProps> = ({ onChange }: CityInputProps) => {
+const CityInput: NextPage<CityInputProps> = ({ setChosenCity }: CityInputProps) => {
+  const [city, setCity] = useState<string>("");
+  const [isAutocompleteOpen, setIsAutocompleteOpen] = useState<boolean>(false);
+  const [isFoucsed, setIsFoucsed] = useState<boolean>(false);
+
+  const handleCityChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const {
+      currentTarget: { value },
+    } = event;
+
+    setCity(value);
+  };
+
+  const handleInputFocus = () => {
+    setIsFoucsed(true);
+  };
+
+  const handleInputBlur = () => {
+    setIsFoucsed(false);
+  };
+
   return (
     <>
       <label>City Name</label>
-      <div className="relative">
+      <div className={`relative mt-2 ${isFoucsed && "drop-shadow-md"}`}>
         <FontAwesomeIcon icon={faMagnifyingGlass} size="lg" className="absolute top-3.5 left-4" />
         <input
           type="text"
           placeholder="Seoul (Default)"
-          className="py-3 pl-11 pr-5 rounded-full w-full focus:outline-0 focus:ring-4 focus: ring-[#A499C6]/50"
-          onChange={onChange}
+          className={`py-3 pl-11 pr-5 w-full focus:outline-0 ${!isAutocompleteOpen ? "rounded-full" : "rounded-t-3xl"}`}
+          onChange={handleCityChange}
           name="city"
+          onFocus={handleInputFocus}
+          onBlur={handleInputBlur}
         />
       </div>
+      <CityAutoComplete input={city} setChosenCity={setChosenCity} setIsAutocompleteOpen={setIsAutocompleteOpen} />
     </>
   );
 };
