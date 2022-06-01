@@ -47,7 +47,7 @@ const Home: NextPage = () => {
 
       <main className="rounded-lg flex-col container grow flex items-center">
         <a href={svgUrl} className="my-3">
-          <object data={svgUrl} className="pointer-events-none" />
+          <img src={svgUrl} alt="Weather Badge" />
         </a>
         <div className="flex flex-col gap-y-6 items-center">
           <form className="flex flex-col w-[20rem] gap-y-2">
