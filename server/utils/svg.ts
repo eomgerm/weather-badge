@@ -17,9 +17,9 @@ export const createBadge = async (lat: string, lon: string, size: string): Promi
   } = airPollution;
 
   const aqiMap: AqiMap = {
-    1: "Good",
-    2: "Fair",
-    3: "Moderate",
+    1: "Best",
+    2: "Good",
+    3: "Fair",
     4: "Poor",
     5: "Worst",
   };
