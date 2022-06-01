@@ -1,6 +1,5 @@
-import { faYammer } from "@fortawesome/free-brands-svg-icons";
-import axios from "axios";
 import IconSVGMap from "../../utils/iconSvgMap";
+import { requestAirPollution, requestWeather } from "./request";
 
 type AqiMap = {
   [key: number]: string;
@@ -30,7 +29,7 @@ export const createBadge = async (lat: string, lon: string, size: string): Promi
   const feelsLike = main.feels_like.toFixed(1);
   const windSpeed = wind.speed.toFixed(1);
 
-  const { uri, scale, y } = IconSVGMap[weather.icon];
+  const { svg, scale, y } = IconSVGMap[weather.icon];
 
   const currentTime = new Date((dt + timezone) * 1000);
   let hours = currentTime.getHours().toString();
@@ -79,7 +78,7 @@ text.description {
     <text x="11" y="9" class="header" >${name}</text>
     <text x="132" y="9" class="header" text-anchor="end">${timeText}</text>
     </svg>
-    <image href="${uri}" height="${+size * scale}" width="${+size * scale}" x="${(+size * (1 - scale)) / 2}" y="${y}"/>
+    <image href="${svg}" height="${+size * scale}" width="${+size * scale}" x="${(+size * (1 - scale)) / 2}" y="${y}"/>
   <text x="75" y="130" class="weather" text-anchor="middle">${weather.main}</text>
   <svg y="150">
   <svg x="15" >
@@ -100,22 +99,4 @@ text.description {
   </svg>
   </svg>
 </svg>`;
-};
-
-const requestWeather = async (lat: string, lon: string) => {
-  const API_KEY = process.env.WEATHER_API_KEY;
-
-  const requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=metric&appid=${API_KEY}`;
-  const { data } = await axios(requestUrl);
-
-  return data;
-};
-
-const requestAirPollution = async (lat: string, lon: string) => {
-  const API_KEY = process.env.WEATHER_API_KEY;
-
-  const requestUrl = `http://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${API_KEY}`;
-  const { data } = await axios(requestUrl);
-
-  return data;
 };
