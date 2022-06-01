@@ -9,6 +9,7 @@ const hanlder = async (req: NextApiRequest, res: NextApiResponse) => {
   const svg = await createBadge(lat as string, lon as string, size as string);
 
   res.setHeader("Content-Type", "image/svg+xml");
+  res.setHeader("Cache-Control", "no-cache");
   res.status(200).end(svg);
 };
 
