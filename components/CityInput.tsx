@@ -24,6 +24,7 @@ const CityInput: NextPage<CityInputProps> = ({ setChosenCity }: CityInputProps) 
 
   const handleInputFocus = () => {
     setIsFoucsed(true);
+    setIsAutocompleteOpen(true);
   };
 
   const handleInputBlur = () => {
@@ -45,7 +46,7 @@ const CityInput: NextPage<CityInputProps> = ({ setChosenCity }: CityInputProps) 
           onBlur={handleInputBlur}
         />
       </div>
-      <CityAutoComplete input={city} setChosenCity={setChosenCity} setIsAutocompleteOpen={setIsAutocompleteOpen} />
+      <CityAutoComplete input={city} setChosenCity={setChosenCity} setIsAutocompleteOpen={setIsAutocompleteOpen} isOpen={isAutocompleteOpen} />
     </>
   );
 };

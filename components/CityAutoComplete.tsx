@@ -1,20 +1,26 @@
 import { NextPage } from "next";
 import { City } from "../types/types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import CityList from "./CityList";
 import useDebounce from "../hooks/useDebounce";
+import useOnClickOutside from "../hooks/useOnClickOutside";
 
 type CityAutoCompleteProps = {
   input: string;
   setChosenCity: (city: City) => void;
+  isOpen: boolean;
   setIsAutocompleteOpen: (isAutocompleteOpen: boolean) => void;
 };
 
-const CityAutoComplete: NextPage<CityAutoCompleteProps> = ({ input, setChosenCity, setIsAutocompleteOpen }: CityAutoCompleteProps) => {
+const CityAutoComplete: NextPage<CityAutoCompleteProps> = ({ input, setChosenCity, setIsAutocompleteOpen, isOpen }: CityAutoCompleteProps) => {
   const [recommendations, setRecommendations] = useState<Array<City>>([]);
 
   const debouncedInput = useDebounce({ value: input, delay: 200 });
+
+  const autocompleteRef = useRef<HTMLDivElement>(null);
+
+  useOnClickOutside(autocompleteRef, () => setIsAutocompleteOpen(false));
 
   useEffect(() => {
     const getCityRecommendations = async () => {
@@ -31,8 +37,11 @@ const CityAutoComplete: NextPage<CityAutoCompleteProps> = ({ input, setChosenCit
   }, [recommendations.length]);
 
   return (
-    <div className="bg-white rounded-b-md flex flex-col w-[20rem] justify-center items-center overflow-y-auto z-10 fixed drop-shadow-md">
-      {recommendations.length > 0 && <CityList setChosenCity={setChosenCity} recommendations={recommendations} />}
+    <div
+      ref={autocompleteRef}
+      className="bg-white rounded-b-md flex flex-col w-[20rem] justify-center items-center overflow-y-auto z-10 fixed drop-shadow-md"
+    >
+      {isOpen && <CityList setIsAutocompleteOpen={setIsAutocompleteOpen} setChosenCity={setChosenCity} recommendations={recommendations} />}
     </div>
   );
 };
