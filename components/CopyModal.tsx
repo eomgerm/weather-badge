@@ -19,9 +19,7 @@ const CopyModal: NextPage<CopyModalProps> = ({ badgeUrl }: CopyModalProps) => {
           <h3 className="text-lg font-bold">HTML</h3>
           <CodeMockup contents={`<a href=${"https://weather-badge.vercel.app" + badgeUrl}>\n   <object data=${badgeUrl} />\n  </a>`} />
           <h3 className="text-lg font-bold">Markdown</h3>
-          <CodeMockup
-            contents={`[![Weather Badge](${"https://weather-badge.vercel.app" + badgeUrl})](${"https://weather-badge.vercel.app/" + badgeUrl}))`}
-          />
+          <CodeMockup contents={`[![Weather Badge](${"https://weather-badge.vercel.app" + badgeUrl})]("https://weather-badge.vercel.app/")`} />
         </label>
       </label>
     </>
