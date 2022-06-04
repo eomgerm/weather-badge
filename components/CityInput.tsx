@@ -2,7 +2,7 @@ import { NextPage } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import CityAutoComplete from "./CityAutoComplete";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { City } from "../types/types";
 
 type CityInputProps = {
@@ -12,6 +12,7 @@ type CityInputProps = {
 const CityInput: NextPage<CityInputProps> = ({ setChosenCity }: CityInputProps) => {
   const [city, setCity] = useState<string>("");
   const [isAutocompleteOpen, setIsAutocompleteOpen] = useState<boolean>(false);
+  const [recommendationsExists, setRecommendationsExists] = useState<boolean>(false);
   const [isFoucsed, setIsFoucsed] = useState<boolean>(false);
 
   const handleCityChange = (event: React.FormEvent<HTMLInputElement>) => {
@@ -24,12 +25,16 @@ const CityInput: NextPage<CityInputProps> = ({ setChosenCity }: CityInputProps) 
 
   const handleInputFocus = () => {
     setIsFoucsed(true);
-    setIsAutocompleteOpen(true);
+    setIsAutocompleteOpen(recommendationsExists);
   };
 
   const handleInputBlur = () => {
     setIsFoucsed(false);
   };
+
+  useEffect(() => {
+    setIsAutocompleteOpen(recommendationsExists);
+  }, [recommendationsExists]);
 
   return (
     <>
@@ -46,7 +51,13 @@ const CityInput: NextPage<CityInputProps> = ({ setChosenCity }: CityInputProps) 
           onBlur={handleInputBlur}
         />
       </div>
-      <CityAutoComplete input={city} setChosenCity={setChosenCity} setIsAutocompleteOpen={setIsAutocompleteOpen} isOpen={isAutocompleteOpen} />
+      <CityAutoComplete
+        input={city}
+        isOpen={isAutocompleteOpen}
+        setChosenCity={setChosenCity}
+        setIsAutocompleteOpen={setIsAutocompleteOpen}
+        setRecommendationsExists={setRecommendationsExists}
+      />
     </>
   );
 };

@@ -11,9 +11,16 @@ type CityAutoCompleteProps = {
   setChosenCity: (city: City) => void;
   isOpen: boolean;
   setIsAutocompleteOpen: (isAutocompleteOpen: boolean) => void;
+  setRecommendationsExists: (exists: boolean) => void;
 };
 
-const CityAutoComplete: NextPage<CityAutoCompleteProps> = ({ input, setChosenCity, setIsAutocompleteOpen, isOpen }: CityAutoCompleteProps) => {
+const CityAutoComplete: NextPage<CityAutoCompleteProps> = ({
+  input,
+  setChosenCity,
+  setIsAutocompleteOpen,
+  isOpen,
+  setRecommendationsExists,
+}: CityAutoCompleteProps) => {
   const [recommendations, setRecommendations] = useState<Array<City>>([]);
 
   const debouncedInput = useDebounce({ value: input, delay: 200 });
@@ -33,7 +40,7 @@ const CityAutoComplete: NextPage<CityAutoCompleteProps> = ({ input, setChosenCit
   }, [debouncedInput]);
 
   useEffect(() => {
-    setIsAutocompleteOpen(recommendations.length > 0);
+    setRecommendationsExists(recommendations.length > 0);
   }, [recommendations.length]);
 
   return (
