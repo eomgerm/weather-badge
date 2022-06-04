@@ -28,6 +28,7 @@ export const createBadge = async (lat: string, lon: string, size: string): Promi
   const temp = main.temp.toFixed(1);
   const feelsLike = main.feels_like.toFixed(1);
   const windSpeed = wind.speed.toFixed(1);
+  const cityName = name.length > 10 ? `${name.slice(0, 10)}...` : name;
 
   const { svg, scale, y } = IconSVGMap[weather.icon];
   const iconSize = Number(size) * scale;
@@ -37,7 +38,7 @@ export const createBadge = async (lat: string, lon: string, size: string): Promi
   hours = hours.length == 1 ? `0${hours}` : hours;
   let minutes = currentTime.getMinutes().toString();
   minutes = minutes.length == 1 ? `0${minutes}` : minutes;
-  const timeText = `${hours}:${minutes} UTC${timezone > 0 ? "+" : "-"}0${Math.abs(timezone / 3600)}:00`;
+  const timeText = `${hours}:${minutes} UTC${timezone > 0 ? "+" : "-"}${Math.abs(timezone / 3600)}`;
 
   //TODO: svg 사이즈 변경 가능하게 하기
 
@@ -76,14 +77,14 @@ text.description {
     <rect height="${height}" width="${size}" stroke="#cccccc" fill="white" rx="5" ry="5" />
     <svg x="8" y="8">
     <svg  xmlns="http://www.w3.org/2000/svg" fill="#bababa" width="10" height="10" viewBox="0 0 384 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M168.3 499.2C116.1 435 0 279.4 0 192C0 85.96 85.96 0 192 0C298 0 384 85.96 384 192C384 279.4 267 435 215.7 499.2C203.4 514.5 180.6 514.5 168.3 499.2H168.3zM192 256C227.3 256 256 227.3 256 192C256 156.7 227.3 128 192 128C156.7 128 128 156.7 128 192C128 227.3 156.7 256 192 256z"/></svg>
-    <text x="11" y="9" class="header" >${name}</text>
+    <text x="11" y="9" class="header" >${cityName}</text>
     <text x="132" y="9" class="header" text-anchor="end">${timeText}</text>
     </svg>
     <svg x="${(+size * (1 - scale)) / 2}" y="${y}" width="${iconSize}" height="${iconSize}">
     ${svg}
     </svg>
   <text x="75" y="130" class="weather" text-anchor="middle">${weather.main}</text>
-  <svg y="150">
+  <svg y="145">
   <svg x="15" >
   <svg xmlns="http://www.w3.org/2000/svg" fill="#005B3A" height="15" width="15" viewBox="0 0 320 512"><!--! Font Awesome Pro 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path d="M176 322.9l.0002-114.9c0-8.75-7.25-16-16-16s-15.1 7.25-15.1 16L144 322.9c-18.62 6.625-32 24.25-32 45.13c0 26.5 21.5 48 48 48s48-21.5 48-48C208 347.1 194.6 329.5 176 322.9zM272 278.5V112c0-61.87-50.12-112-111.1-112S48 50.13 48 112v166.5c-19.75 24.75-32 55.5-32 89.5c0 79.5 64.5 143.1 144 143.1S304 447.5 304 368C304 334 291.8 303.1 272 278.5zM160 448c-44.13 0-80-35.87-80-79.1c0-25.5 12.25-48.88 32-63.75v-192.3c0-26.5 21.5-48 48-48s48 21.5 48 48v192.3c19.75 14.75 32 38.25 32 63.75C240 412.1 204.1 448 160 448z"/></svg>
   <text x="16" y="10" class="description">${temp}℃</text>
