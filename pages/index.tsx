@@ -1,6 +1,5 @@
 import type { NextPage } from "next";
 import React, { useState } from "react";
-import CityAutoComplete from "../components/CityAutoComplete";
 import CityInput from "../components/CityInput";
 import CopyButton from "../components/CopyButton";
 import Footer from "../components/Footer";
@@ -11,10 +10,16 @@ import { City } from "../types/types";
 import generateQueryString from "../utils/generateQueryString";
 import CopyModal from "../components/CopyModal";
 import Head from "next/head";
+import { useJsApiLoader } from "@react-google-maps/api";
+import Maps from "../components/Maps";
 
 const Home: NextPage = () => {
   const [chosenCity, setChosenCity] = useState<City>({ name: "Seoul", state: "", country: "KR", lat: 37.5666791, lon: 126.9782914 });
   const [size, setSize] = useState<string>("");
+
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: process.env.NEXT_PUBLIC_MAPS_API_KEY as string,
+  });
 
   const handleSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -40,12 +45,13 @@ const Home: NextPage = () => {
         <a href={svgUrl} className="my-3">
           <img src={svgUrl} alt="Weather Badge" />
         </a>
-        <div className="flex flex-col gap-y-6 items-center">
-          <form className="w-[20rem] relative z-0">
+        <div className="flex flex-col gap-y-6 items-center relative z-0">
+          <form className="w-[20rem]">
             <CityInput setChosenCity={setChosenCity} />
             <SizeInput onChange={handleSizeChange} />
           </form>
 
+          {isLoaded ? <Maps lat={chosenCity.lat} lng={chosenCity.lon} /> : <div>Loading...</div>}
           <CopyButton />
         </div>
 
