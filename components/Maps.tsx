@@ -8,7 +8,7 @@ type MapsProps = {
 
 const Maps: NextPage<MapsProps> = ({ lat, lng }: MapsProps) => {
   return (
-    <GoogleMap zoom={15} center={{ lat, lng }} mapContainerClassName="container h-80 rounded-lg">
+    <GoogleMap zoom={13} center={{ lat, lng }} mapContainerClassName="container h-80 rounded-lg">
       <MarkerF position={{ lat, lng }} />
     </GoogleMap>
   );
