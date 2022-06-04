@@ -9,6 +9,21 @@
 </a>
 </div>
 
+## ✔️ Contents
+
+- [Contents](#✔️-contents)
+- [About](#💁-about)
+- [Usage](#📝-usage)
+  - [SVG URL](#svg-url)
+  - [HTML](#html)
+  - [Markdown](#markdown)
+  - [Or](#or)
+- [Built With](#built-with)
+  - [Web](#web)
+  - [SVG](#svg)
+  - [Server](#server)
+  - [Deploy](#deploy)
+
 ## 💁 About
 
 실시간으로 최근 날씨를 보여주는 SVG입니다!  
@@ -44,3 +59,24 @@ https://weather-badge.vercel.app/api/badge?lat={latitude}&lon={longitude}&size={
 ### Or
 
 You can easily create badge via <a href="https://weather-badge.vercel.app/">my site</a>!
+
+## Built with
+
+### Web
+
+- Next.js
+- Tailwind CSS
+- FontAwesome
+
+### SVG
+
+- FontAwesome
+- <a href="https://bas.dev/work/meteocons"> Meteocons </a>
+
+### Server
+
+- Next.js
+
+### Deploy
+
+- Vercel
