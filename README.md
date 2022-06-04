@@ -5,8 +5,8 @@
 [![Weather Badge](https://weather-badge.vercel.app/api/badge?lat=37.5666791&lon=126.9782914&size=180)]("https://weather-badge.vercel.app/")
 
 <a href="https://weather-badge.vercel.app/">
-🏃  Go to Website</a>
-
+🏃 Go to Website</a>
+</a>
 </div>
 
 ## 💁 About
@@ -42,4 +42,5 @@ https://weather-badge.vercel.app/api/badge?lat={latitude}&lon={longitude}&size={
 ⚠️ **lat, lon is required, size is optional (default: 150)**
 
 ### Or
+
 You can easily create badge via <a href="https://weather-badge.vercel.app/">my site</a>!
