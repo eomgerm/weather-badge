@@ -30,6 +30,7 @@ export const createBadge = async (lat: string, lon: string, size: string): Promi
   const windSpeed = wind.speed.toFixed(1);
 
   const { svg, scale, y } = IconSVGMap[weather.icon];
+  const iconSize = Number(size) * scale;
 
   const currentTime = new Date((dt + timezone) * 1000);
   let hours = currentTime.getHours().toString();
@@ -78,7 +79,9 @@ text.description {
     <text x="11" y="9" class="header" >${name}</text>
     <text x="132" y="9" class="header" text-anchor="end">${timeText}</text>
     </svg>
-    <image href="${svg}" height="${+size * scale}" width="${+size * scale}" x="${(+size * (1 - scale)) / 2}" y="${y}"/>
+    <svg x="${(+size * (1 - scale)) / 2}" y="${y}" width="${iconSize}" height="${iconSize}">
+    ${svg}
+    </svg>
   <text x="75" y="130" class="weather" text-anchor="middle">${weather.main}</text>
   <svg y="150">
   <svg x="15" >
