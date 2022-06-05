@@ -33,7 +33,7 @@ const Home: NextPage = () => {
   const svgUrl = `/api/badge${queryString}`;
 
   return (
-    <div className="min-h-screen flex-col flex">
+    <div className="min-h-screen flex-col flex min-w-fit">
       <Head>
         <title>🌦️ - Weather Badge</title>
         <meta charSet="utf-8" />
