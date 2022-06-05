@@ -46,7 +46,7 @@ const CityAutoComplete: NextPage<CityAutoCompleteProps> = ({
   return (
     <div
       ref={autocompleteRef}
-      className="bg-white rounded-b-md flex flex-col w-[20rem] justify-center items-center overflow-y-auto z-10 fixed drop-shadow-md"
+      className="bg-white rounded-b-md flex flex-col w-[20rem] justify-center items-center overflow-y-auto z-10 absolute drop-shadow-md"
     >
       {isOpen && <CityList setIsAutocompleteOpen={setIsAutocompleteOpen} setChosenCity={setChosenCity} recommendations={recommendations} />}
     </div>
